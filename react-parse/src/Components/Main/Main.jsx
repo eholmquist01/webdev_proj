@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getAllRecipes } from "../../Services/Recipes.js";
-import MainList from "./MainList.js";
+import { getAllRecipes } from "../../Services/Recipes.jsx";
+import MainList from "./MainList.jsx";
 
 const Main = () => {
   // initialize variables
