@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { createRecipe } from "../../Services/Recipes.jsx";
 
-const Main = ({ onAddRecipe }) => {
+const Main = () => {
   // initialize variables
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -18,7 +19,7 @@ const Main = ({ onAddRecipe }) => {
     }
   };
 
-  // creates a new recipe and sends it up to Components to be displayed in all recipes
+  // creates a new recipe through the recipes service and clears the form
   const enterSubmit = () => {
     const newRecipe = {
       id: Date.now(),
@@ -29,13 +30,13 @@ const Main = ({ onAddRecipe }) => {
       instructions: instructions,
     };
 
-    // sends new recipe to parent and sets form back to empty
-    onAddRecipe(newRecipe);
-    setName("");
-    setDescription("");
-    setCategory([]);
-    setIngredients("");
-    setInstructions("");
+    createRecipe(newRecipe).then(() => {
+      setName("");
+      setDescription("");
+      setCategory([]);
+      setIngredients("");
+      setInstructions("");
+    });
   };
 
   return (
@@ -163,7 +164,7 @@ const Main = ({ onAddRecipe }) => {
           ></textarea>
         </div>
 
-        {/* submit recipe */}
+        {/* submit */}
         <button type="button" onClick={enterSubmit}>
           Add Recipe
         </button>
