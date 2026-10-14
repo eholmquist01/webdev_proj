@@ -1,6 +1,8 @@
 import axios from "axios";
-// import Parse from "parse";
+import 'parse'
+
 const Parse = window.Parse;
+
 const url =
   "https://my-json-server.typicode.com/kellybuchanan/WebDev-Spring2021";
 
