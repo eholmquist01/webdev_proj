@@ -89,6 +89,29 @@ const RecipeDisplay = () => {
     <div className="recipe-display">
       <h1>Recipes</h1>
 
+        {/* Filter by category */}
+        <div className="form-row">
+          <label htmlFor="category-filter">
+            Filter by category:
+          </label>
+
+          <select
+            id="category-filter"
+            value={selectedCategory}
+            onChange={(event) =>
+              setSelectedCategory(event.currentTarget.value)
+            }
+          >
+            <option value="all">All</option>
+
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
       {/* Some debugging/error handling */}
       {/* Show a loading message while recipes are being fetched */}
       {!isLoaded && <p>Loading recipes...</p>}
@@ -96,37 +119,12 @@ const RecipeDisplay = () => {
       {/* Show an error if loading fails */}
       {isLoaded && error && <p role="alert">{error}</p>}
 
-      {/* Display the filter and recipes after loading */}
+      {/* Display recipes after loading */}
       {isLoaded && !error && (
-        <>
-        {/* Filter by category */}
-          <div className="form-row">
-            <label htmlFor="category-filter">
-              Filter by category:
-            </label>
-
-            <select
-              id="category-filter"
-              value={selectedCategory}
-              onChange={(event) =>
-                setSelectedCategory(event.currentTarget.value)
-              }
-            >
-              <option value="all">All</option>
-
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <RecipeList
             recipes={recipes}
             onDelete={handleDelete}
           />
-        </>
       )}
     </div>
   );

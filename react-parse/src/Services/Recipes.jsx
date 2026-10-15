@@ -15,7 +15,8 @@ export const deleteRecipe = (id) => {
     return recipe.destroy();
   })
   .catch((err) => {
-    console.log("Delete error: ", err);
+    console.error("Delete error: ", err);
+    throw err;
   })
 };
 
@@ -69,8 +70,8 @@ export const getAllRecipes = () => {
       }));
     })
     .catch((err) => {
-      console.log("GET Error: ", err);
-      return [];
+      console.error("GET Error: ", err);
+      throw err;
     });
 };
 
@@ -95,7 +96,7 @@ export const getRecipesByCategory = (categoryId) => {
       }));
     })
     .catch((err) => {
-      console.log("GET Error with Recipes/Categories: ", err);
-      return [];
+      console.error("GET Error with Recipes/Categories: ", err);
+      throw err;
     });
 };

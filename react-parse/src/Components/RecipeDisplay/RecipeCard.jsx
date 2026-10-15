@@ -9,9 +9,7 @@ const RecipeCard = ({ recipe, onDelete }) => {
 
       <p>
         <strong>Category: </strong>
-        {Array.isArray(recipe.category)
-          ? recipe.category.join(", ")
-          : recipe.category}
+        {recipe.category}
       </p>
 
       <p>{recipe.description}</p>
