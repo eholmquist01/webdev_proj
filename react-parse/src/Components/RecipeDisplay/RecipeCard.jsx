@@ -1,6 +1,7 @@
 import React from "react";
 import "./RecipeCard.css";
 
+// Recipe card display
 const RecipeCard = ({ recipe, onDelete }) => {
   return (
     <article className="recipe-card">

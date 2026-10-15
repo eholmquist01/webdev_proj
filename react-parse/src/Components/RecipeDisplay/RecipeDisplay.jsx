@@ -34,8 +34,7 @@ const RecipeDisplay = () => {
     loadCategories();
   }, []);
 
-  // Load recipes when the component mounts
-  // and whenever the selected category changes
+  // Load recipes when the component mounts and whenever the selected category changes
   useEffect(() => {
     const loadRecipes = async () => {
       setIsLoaded(false);
@@ -90,6 +89,7 @@ const RecipeDisplay = () => {
     <div className="recipe-display">
       <h1>Recipes</h1>
 
+      {/* Some debugging/error handling */}
       {/* Show a loading message while recipes are being fetched */}
       {!isLoaded && <p>Loading recipes...</p>}
 
@@ -99,6 +99,7 @@ const RecipeDisplay = () => {
       {/* Display the filter and recipes after loading */}
       {isLoaded && !error && (
         <>
+        {/* Filter by category */}
           <div className="form-row">
             <label htmlFor="category-filter">
               Filter by category:

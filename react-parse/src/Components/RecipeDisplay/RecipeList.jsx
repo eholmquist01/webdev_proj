@@ -12,7 +12,7 @@ const RecipeList = ({ recipes, onDelete }) => {
       </p>
     );
   }
-    //   display recipes
+    // display recipes
   return (
     <div id="recipe-list">
       <h2>All Recipes</h2>

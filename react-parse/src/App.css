@@ -48,7 +48,7 @@ button:disabled {
   }
 }
 
-/* ---------- Global theme ---------- */
+/* Theme */
 
 :root {
   --blue: #2e6f9e;
@@ -90,7 +90,7 @@ p {
   margin-top: 0.5rem;
 }
 
-/* ---------- Navigation bar ---------- */
+/* Nav Bar */
 
 nav {
   width: 100%;
@@ -132,7 +132,7 @@ nav a.active {
   color: var(--yellow);
 }
 
-/* ---------- Centered page content ---------- */
+/* Center Page */
 
 .main-page,
 .recipe-display {
@@ -151,7 +151,7 @@ nav a.active {
   text-align: center;
 }
 
-/* ---------- Forms and dropdowns ---------- */
+/* Forms/dropdowns */
 
 .form-row {
   display: flex;
@@ -196,7 +196,7 @@ textarea {
   resize: vertical;
 }
 
-/* ---------- Buttons ---------- */
+/* Buttons */
 
 button {
   padding: 0.7rem 1.2rem;
@@ -221,7 +221,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* ---------- Feedback messages ---------- */
+/* Acknowledgement of Recipe Creation */
 
 [role="alert"],
 [role="status"] {
@@ -240,7 +240,7 @@ button:disabled {
   color: #246b36;
 }
 
-/* ---------- Mobile layout ---------- */
+/* Mobile layout */
 
 @media (max-width: 600px) {
   nav {
