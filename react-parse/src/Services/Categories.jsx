@@ -18,6 +18,7 @@ export const getAllCategories = () => {
       }));
     })
     .catch((err) => {
-      console.log("GET Error: ", err);
+      console.error("GET Error: ", err);
+      throw err;
     });
 };
