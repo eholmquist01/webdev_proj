@@ -5,10 +5,10 @@ All notable changes to this project are documented in this file.
 ## [0.2.0] - 2026-10-15
 
 ### Added
-- Rebuilt the app as a React project and moved it into a GitHub repository, with separate frontend and backend branches merged through pull requests
+- Rebuilt the app as a React + Vite project and moved it into a GitHub repository, with separate frontend and backend branches merged through pull requests
 - Routing between pages, with a shared header
-- Parse database backend, including a Categories model and `getCategories` function
-- `getAllRecipes` and `getRecipesByCategories` service functions, so recipes can be loaded and filtered by category
+- Parse initialization in `index.js`, connecting the app to Back4App database backend, including a Category model and `getAllCategories` function
+- `getAllRecipes` and `getRecipesByCategory` service functions, so recipes can be loaded and filtered by category
 - Stylesheets for the app, including styled recipe cards
 - Explanatory comments throughout the codebase
 

@@ -2,6 +2,10 @@ import 'parse'
 
 const Parse = window.Parse;
 
+// connect category pointer to recipes
+const Category = Parse.Object.extend("Category");
+const categoryPointer = (categoryId) => Category.createWithoutData(categoryId);
+
 // delete recipe - remove by id
 export const deleteRecipe = (id) => {
   const Recipe = Parse.Object.extend("Recipe");
@@ -11,7 +15,8 @@ export const deleteRecipe = (id) => {
     return recipe.destroy();
   })
   .catch((err) => {
-    console.log("Delete error: ", err);
+    console.error("Delete error: ", err);
+    throw err;
   })
 };
 
@@ -29,7 +34,7 @@ export const createRecipe = (
   // using setter to update object
   recipe.set("name", name);
   recipe.set("description", description);
-  recipe.set("category", Parse.Object.createWithoutData("Category", categoryId)) // points to category
+  recipe.set("category", categoryPointer(categoryId)) // points to category
   recipe.set("ingredients", ingredients);
   recipe.set("instructions", instructions);
   return recipe.save()
@@ -65,8 +70,8 @@ export const getAllRecipes = () => {
       }));
     })
     .catch((err) => {
-      console.log("GET Error: ", err);
-      return [];
+      console.error("GET Error: ", err);
+      throw err;
     });
 };
 
@@ -75,7 +80,7 @@ export const getRecipesByCategory = (categoryId) => {
   const Recipe = Parse.Object.extend("Recipe");
   const query = new Parse.Query(Recipe);
   // include category columns in query
-  query.equalTo("category", Parse.Object.createWithoutData("Category", categoryId));
+  query.equalTo("category", categoryPointer(categoryId));
   query.include("category");
 
   return query
@@ -91,7 +96,7 @@ export const getRecipesByCategory = (categoryId) => {
       }));
     })
     .catch((err) => {
-      console.log("GET Error with Recipes/Categories: ", err);
-      return [];
+      console.error("GET Error with Recipes/Categories: ", err);
+      throw err;
     });
 };

@@ -1,4 +1,3 @@
-import axios from "axios";
 import 'parse'
 
 const Parse = window.Parse
