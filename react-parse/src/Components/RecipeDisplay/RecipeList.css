@@ -1,0 +1,13 @@
+#recipe-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  align-items: start;
+}
+
+#recipe-list h2 {
+  grid-column: 1 / -1;
+  color: #2e6f9e;
+}

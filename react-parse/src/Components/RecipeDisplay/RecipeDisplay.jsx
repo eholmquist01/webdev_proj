@@ -4,61 +4,130 @@ import {
   getRecipesByCategory,
   deleteRecipe,
 } from "../../Services/Recipes.jsx";
+import { getAllCategories } from "../../Services/Categories.jsx";
 import RecipeList from "./RecipeList.jsx";
+import "./RecipeDisplay.css";
 
 const RecipeDisplay = () => {
-  // initialize variables
+  // Initialize state variables
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [error, setError] = useState("");
 
-  // Load recipes through recipes service at load and whenever the filter changes
+  // Load categories when the component mounts
   useEffect(() => {
-    const request =
-      selectedCategory === "all"
-        ? getAllRecipes()
-        : getRecipesByCategory(selectedCategory);
+    const loadCategories = async () => {
+      try {
+        const data = await getAllCategories();
 
-    request.then((data) => {
-      setRecipes(data || []);
-      setIsLoaded(true);
-    });
+        console.log("Categories returned:", data);
+
+        setCategories(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error loading categories:", error);
+        setCategories([]);
+      }
+    };
+
+    loadCategories();
+  }, []);
+
+  // Load recipes when the component mounts
+  // and whenever the selected category changes
+  useEffect(() => {
+    const loadRecipes = async () => {
+      setIsLoaded(false);
+      setError("");
+
+      try {
+        const data =
+          selectedCategory === "all"
+            ? await getAllRecipes()
+            : await getRecipesByCategory(selectedCategory);
+
+        console.log("Recipes returned:", data);
+
+        if (Array.isArray(data)) {
+          setRecipes(data);
+        } else {
+          console.error(
+            "Expected an array of recipes, but received:",
+            data
+          );
+
+          setRecipes([]);
+          setError("The recipe data was returned in an unexpected format.");
+        }
+      } catch (error) {
+        console.error("Error loading recipes:", error);
+        setRecipes([]);
+        setError("Unable to load recipes. Please try again.");
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+
+    loadRecipes();
   }, [selectedCategory]);
 
-  // child sends back an id to delete a recipe when passed to RecipeList
-  const handleDelete = (id) => {
-    deleteRecipe(id).then(() => {
-      setRecipes(recipes.filter((recipe) => recipe.id !== id));
-    });
+  // Delete a recipe and remove it from the displayed list
+  const handleDelete = async (id) => {
+    try {
+      await deleteRecipe(id);
+
+      setRecipes((current) =>
+        current.filter((recipe) => recipe.id !== id)
+      );
+    } catch (error) {
+      console.error("Error deleting recipe:", error);
+      setError("Unable to delete the recipe. Please try again.");
+    }
   };
 
   return (
-    <>
-      {isLoaded && (
-        <div>
-          {/* Category filter */}
+    <div className="recipe-display">
+      <h1>Recipes</h1>
+
+      {/* Show a loading message while recipes are being fetched */}
+      {!isLoaded && <p>Loading recipes...</p>}
+
+      {/* Show an error if loading fails */}
+      {isLoaded && error && <p role="alert">{error}</p>}
+
+      {/* Display the filter and recipes after loading */}
+      {isLoaded && !error && (
+        <>
           <div className="form-row">
-            <label htmlFor="category-filter">Filter by category:</label>
+            <label htmlFor="category-filter">
+              Filter by category:
+            </label>
+
             <select
               id="category-filter"
               value={selectedCategory}
-              onChange={(event) => setSelectedCategory(event.currentTarget.value)}
+              onChange={(event) =>
+                setSelectedCategory(event.currentTarget.value)
+              }
             >
               <option value="all">All</option>
-              <option value="dessert">Dessert</option>
-              <option value="main">Main</option>
-              <option value="appetizer">Appetizer</option>
-              <option value="drink">Drink</option>
-              <option value="soups">Soups</option>
-              <option value="salads">Salads</option>
+
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>
 
-          {/* Passes recipes and delete function to child */}
-          <RecipeList recipes={recipes} onDelete={handleDelete} />
-        </div>
+          <RecipeList
+            recipes={recipes}
+            onDelete={handleDelete}
+          />
+        </>
       )}
-    </>
+    </div>
   );
 };
 

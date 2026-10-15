@@ -1,21 +1,28 @@
 import React from "react";
+import "./RecipeCard.css";
 
 const RecipeCard = ({ recipe, onDelete }) => {
   return (
-    <article>
+    <article className="recipe-card">
       <h3>{recipe.name}</h3>
+
       <p>
         <strong>Category: </strong>
         {Array.isArray(recipe.category)
           ? recipe.category.join(", ")
           : recipe.category}
       </p>
+
       <p>{recipe.description}</p>
+
       <p>
-        <strong>Ingredients: </strong> {recipe.ingredients}
+        <strong>Ingredients: </strong>
+        {recipe.ingredients}
       </p>
+
       <p>
-        <strong>Instructions: </strong> {recipe.instructions}
+        <strong>Instructions: </strong>
+        {recipe.instructions}
       </p>
 
       <button type="button" onClick={() => onDelete(recipe.id)}>

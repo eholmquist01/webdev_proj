@@ -1,0 +1,61 @@
+.main-page {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.main-page h1 {
+  color: #2e6f9e;
+  font-family: "Poppins", sans-serif;
+}
+
+.main-page p {
+  font-family: "Nunito", sans-serif;
+}
+
+.main-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main-page .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.main-page label {
+  font-weight: 600;
+}
+
+.main-page input,
+.main-page select,
+.main-page textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+.main-page button {
+  padding: 12px 18px;
+  background-color: #ff6f9c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.main-page button:hover {
+  background-color: #e95382;
+}
+
+.main-page button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

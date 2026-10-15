@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RecipeCard from "./RecipeCard.jsx";
+import "./RecipeList.css";
 
 const RecipeList = ({ recipes, onDelete }) => {
 // show message if no recipes
