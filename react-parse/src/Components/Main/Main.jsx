@@ -1,51 +1,114 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRecipe } from "../../Services/Recipes.jsx";
+import { getAllCategories } from "../../Services/Categories.jsx";
+import "./Main.css";
 
 const Main = () => {
-  // initialize variables
+  // Initialize state variables
+  const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState([]);
+  const [categoryId, setCategoryId] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [instructions, setInstructions] = useState("");
 
-  // handles if a category is checked in the form and adds to category list
-  const handleCategory = (event) => {
-    const value = event.currentTarget.value;
-    if (event.currentTarget.checked) {
-      setCategory(category.concat(value));
-    } else {
-      setCategory(category.filter((c) => c != value));
+  // Track submission status and messages
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  // Load categories when the component mounts
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await getAllCategories();
+        console.log("Categories returned:", data);
+        setCategories(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Error loading categories:", err);
+        setError("Unable to load categories.");
+      }
+    };
+
+    loadCategories();
+  }, []);
+
+  // Create a recipe and clear the form after success
+  const enterSubmit = async (event) => {
+    event.preventDefault();
+
+    setError("");
+    setSuccess("");
+
+    // Validate required fields
+    if (!name.trim()) {
+      setError("Please enter a recipe name.");
+      return;
+    }
+
+    if (!categoryId) {
+      setError("Please select a category.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      console.log("Submitting recipe:", {
+        name,
+        description,
+        categoryId,
+        ingredients,
+        instructions,
+      });
+
+      await createRecipe(
+        name.trim(),
+        description,
+        categoryId,
+        ingredients,
+        instructions
+      );
+
+      // Clear the form only if creation succeeds
+      setName("");
+      setDescription("");
+      setCategoryId("");
+      setIngredients("");
+      setInstructions("");
+
+      setSuccess("Recipe added successfully!");
+    } catch (err) {
+      console.error("Error creating recipe:", err);
+      setError(
+        err?.message || "Unable to add recipe. Check the console for details."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // creates a new recipe through the recipes service and clears the form
-  const enterSubmit = () => {
-    const newRecipe = {
-      id: Date.now(),
-      name: name,
-      description: description,
-      category: category,
-      ingredients: ingredients,
-      instructions: instructions,
-    };
-
-    createRecipe(newRecipe).then(() => {
-      setName("");
-      setDescription("");
-      setCategory([]);
-      setIngredients("");
-      setInstructions("");
-    });
-  };
-
   return (
-    <div>
+    <div className="main-page">
       <h1>RecipeMe - a resource for collecting and organizing recipes!</h1>
       <p>Add your recipe below:</p>
 
-      {/* Recipe Entry form */}
-      <form>
+      {success && (
+      <div className="success-popup" role="status">
+        <span className="success-icon">✓</span>
+        {success}
+        <button
+          type="button"
+          className="success-close"
+          onClick={() => setSuccess("")}
+          aria-label="Dismiss notification"
+        >
+          ×
+        </button>
+      </div>
+    )}
+
+      <form onSubmit={enterSubmit}>
         <div className="form-row">
           <label htmlFor="recipe-name">Recipe Name:</label>
           <input
@@ -53,104 +116,58 @@ const Main = () => {
             id="recipe-name"
             name="name"
             value={name}
-            onInput={(event) => setName(event.currentTarget.value)}
+            onChange={(event) => setName(event.currentTarget.value)}
+            required
           />
         </div>
 
         <div className="form-row">
-          <label htmlFor="recipe-description">Recipe Description:</label>
+          <label htmlFor="recipe-description">
+            Recipe Description:
+          </label>
           <input
             type="text"
             id="recipe-description"
             name="description"
             value={description}
-            onInput={(event) => setDescription(event.currentTarget.value)}
+            onChange={(event) =>
+              setDescription(event.currentTarget.value)
+            }
           />
         </div>
 
-        {/* checkboxes for categories */}
         <div className="form-row">
-          <span className="row-label">Category:</span>
-          <div className="checkbox-group">
-            <span>
-              <input
-                type="checkbox"
-                id="dessert"
-                name="category"
-                value="dessert"
-                checked={category.includes("dessert")}
-                onChange={handleCategory}
-              />
-              <label htmlFor="dessert">Dessert</label>
-            </span>
-            <span>
-              <input
-                type="checkbox"
-                id="main"
-                name="category"
-                value="main"
-                checked={category.includes("main")}
-                onChange={handleCategory}
-              />
-              <label htmlFor="main">Main</label>
-            </span>
-            <span>
-              <input
-                type="checkbox"
-                id="appetizer"
-                name="category"
-                value="appetizer"
-                checked={category.includes("appetizer")}
-                onChange={handleCategory}
-              />
-              <label htmlFor="appetizer">Appetizer</label>
-            </span>
-            <span>
-              <input
-                type="checkbox"
-                id="drink"
-                name="category"
-                value="drink"
-                checked={category.includes("drink")}
-                onChange={handleCategory}
-              />
-              <label htmlFor="drink">Drink</label>
-            </span>
-            <span>
-              <input
-                type="checkbox"
-                id="soups"
-                name="category"
-                value="soups"
-                checked={category.includes("soups")}
-                onChange={handleCategory}
-              />
-              <label htmlFor="soups">Soups</label>
-            </span>
-            <span>
-              <input
-                type="checkbox"
-                id="salads"
-                name="category"
-                value="salads"
-                checked={category.includes("salads")}
-                onChange={handleCategory}
-              />
-              <label htmlFor="salads">Salads</label>
-            </span>
-          </div>
+          <label htmlFor="recipe-category">Category:</label>
+          <select
+            id="recipe-category"
+            name="category"
+            value={categoryId}
+            onChange={(event) =>
+              setCategoryId(event.currentTarget.value)
+            }
+            required
+          >
+            <option value="">Select a category</option>
+
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/* text areas for handling large text */}
         <div className="form-row">
           <label htmlFor="ingredients">Ingredients:</label>
           <textarea
             id="ingredients"
             name="ingredients"
-            rows="5"
+            rows={5}
             value={ingredients}
-            onInput={(event) => setIngredients(event.currentTarget.value)}
-          ></textarea>
+            onChange={(event) =>
+              setIngredients(event.currentTarget.value)
+            }
+          />
         </div>
 
         <div className="form-row">
@@ -158,15 +175,19 @@ const Main = () => {
           <textarea
             id="instructions"
             name="instructions"
-            rows="5"
+            rows={5}
             value={instructions}
-            onInput={(event) => setInstructions(event.currentTarget.value)}
-          ></textarea>
+            onChange={(event) =>
+              setInstructions(event.currentTarget.value)
+            }
+          />
         </div>
 
-        {/* submit */}
-        <button type="button" onClick={enterSubmit}>
-          Add Recipe
+        {error && <p role="alert">{error}</p>}
+        {success && <p role="status">{success}</p>}
+
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Adding Recipe..." : "Add Recipe"}
         </button>
       </form>
     </div>

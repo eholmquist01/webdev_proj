@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RecipeCard from "./RecipeCard.jsx";
+import "./RecipeList.css";
 
 const RecipeList = ({ recipes, onDelete }) => {
 // show message if no recipes
@@ -11,7 +12,7 @@ const RecipeList = ({ recipes, onDelete }) => {
       </p>
     );
   }
-    //   display recipes
+    // display recipes
   return (
     <div id="recipe-list">
       <h2>All Recipes</h2>

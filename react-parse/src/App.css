@@ -1,166 +1,262 @@
-/* Import two Google Fonts: Poppins for headings, Nunito for body text */
+
+/* Import Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Nunito:wght@400;500&display=swap");
 
+/* Global page styles */
 body {
   margin: 0;
   font-family: "Nunito", sans-serif;
-  background-color: #eaf4fb; /* light blue page background */
-  color: #2d2d2d; /* dark gray text */
+  background-color: #eaf4fb;
+  color: #2d2d2d;
 }
 
-h1 {
+/* Global heading styles */
+h1,
+h2,
+h3 {
   font-family: "Poppins", sans-serif;
-  color: #2e6f9e; /* blue heading color */
-  padding: 1.5rem; /* space around the heading text on all sides */
-  margin: 0;
+  color: #2e6f9e;
 }
 
-h2 {
-  font-family: "Poppins", sans-serif;
-  color: #2e6f9e; /* blue heading color */
-  padding: 1.5rem; /* space around the heading text on all sides */
-  margin: 0;
-}
-
-p {
-  padding: 0 1.5rem; /* left/right spacing so text isn't flush against the edge */
-  margin: 0 0 1rem; /* space below the paragraph before the next element */
-}
-
-/* Styled Navigation */
-header {
-  background-color: #2e6f9e; /* blue background band behind the nav links */
-}
-
-nav {
-  display: flex; /* lay nav links out horizontally, side by side (flexbox) */
-  gap: 1.5rem; /* spacing between each nav link */
-  padding: 1rem 1.5rem; /* space around the links inside the header */
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none; /* remove default underline */
-  font-weight: 500;
-}
-
-nav a:hover {
-  color: #ffd93d; /* yellow highlight on hover */
-  text-decoration: underline; /* underline reappears on hover */
-}
-
-/* Layout with Flexbox */
-form {
-  display: flex; /* stack form rows vertically using flexbox */
-  flex-direction: column; /* children stack top to bottom */
-  gap: 1rem; /* vertical spacing between each form row */
-  max-width: 600px; /* keep the form from stretching too wide on large screens */
-  margin: 0 auto 2rem; /* center the form horizontally, add space below it */
-  padding: 0 1.5rem;
-}
-
-.form-row {
-  display: grid; /* use grid to align each label next to its input */
-  grid-template-columns: 160px 1fr; /* fixed-width label column, flexible input column */
-  gap: 0.5rem 1rem; /* row gap, then column gap between label and input */
-  align-items: start; /* align label/input to the top of the row */
-}
-
-.row-label {
-  font-weight: 500; /* bold label text */
-  padding-top: 0.4rem; /* nudges the label down to line up with input text */
-}
-
-input[type="text"],
-textarea {
-  font-family: inherit; /* use the same font as the rest of the page, not the browser default */
-  font-size: 0.95rem; /* slightly smaller than default for a cleaner look */
-  padding: 0.5rem; /* inner spacing so typed text isn't jammed against the border */
-  border: 1px solid #bcd7ea; /* light blue border matching the color scheme */
-  border-radius: 4px; /* slightly rounded corners */
-  width: 100%; /* fill the available grid column width */
-}
-
-.checkbox-group {
-  display: flex; /* lay checkboxes out horizontally */
-  flex-wrap: wrap; /* let checkboxes wrap to a new line if they don't all fit */
-  gap: 0.5rem 1.25rem; /* row gap, then spacing between each checkbox/label pair */
-}
-
-.checkbox-group span {
-  display: inline-flex; /* keep each checkbox and its label aligned on one line */
-  align-items: center; /* vertically center the checkbox with its label text */
-  gap: 0.3rem; /* small space between the checkbox and its label text */
-}
-
-input[type="checkbox"] {
-  accent-color: #ff6f9c; /* pink checkmark/box color when checked */
-}
-
+/* Shared buttons */
 button {
-  align-self: flex-start; /* prevent the button from stretching full width in the flex column */
-  background-color: #ff6f9c; /* pink button background */
-  color: #fff; /* white button text */
-  border: none; /* remove default browser button border */
-  padding: 0.6rem 1.3rem; /* inner spacing so the button isn't cramped */
-  border-radius: 4px; /* slightly rounded corners */
-  font-size: 0.95rem; /* consistent with input font sizing */
-  cursor: pointer; /* shows a pointer/hand cursor on hover to indicate it's clickable */
+  background-color: #ff6f9c;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.3rem;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
 }
 
 button:hover {
-  background-color: #ffd93d; /* yellow background on hover */
-  color: #2d2d2d; /* dark text for contrast against the yellow */
+  background-color: #ffd93d;
+  color: #2d2d2d;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-  /* Applies when the screen is 600px wide or narrower (phones/small tablets) */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
+/* Responsive navigation */
+@media (max-width: 600px) {
   nav {
-    flex-direction: column; /* stack nav links vertically instead of side by side */
-    gap: 0.5rem; /* smaller gap since they're now stacked */
-  }
-
-  .form-row {
-    grid-template-columns: 1fr; /* collapse to a single column: label stacks above its input */
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
 
-/* CSS Grid for Recipe Cards
-#recipe-list {
-  display: grid; /* arrange recipe cards in a grid layout */
-  /*grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  /* create as many columns as fit, each at least 260px wide, sharing leftover space equally */
-  /*grid-auto-rows: 1fr; /* make every row the same height, so cards line up evenly */
-  /*gap: 1.5rem; /* spacing between cards, both rows and columns */
-  /*padding: 1rem 1.5rem 2rem; /* space around the whole grid: top, sides, bottom */
-/*} */
+/* Theme */
 
-article {
-  background-color: #fff; /* white card background */
-  border: 1px solid #bcd7ea; /* light blue border around card */
-  border-left: 4px solid #ffd93d; /* thicker yellow accent stripe on left edge */
-  border-radius: 4px; /* slightly rounded corners */
-  padding: 1.2rem; /* inner spacing so card content isn't cramped against the border */
+:root {
+  --blue: #2e6f9e;
+  --blue-dark: #205779;
+  --blue-light: #eaf4fb;
+  --pink: #ff6f9c;
+  --pink-dark: #e95382;
+  --yellow: #ffd93d;
+  --white: #ffffff;
+  --text: #344454;
+  --border: #d5e1ea;
 }
 
-article h3 {
-  font-family: "Poppins", sans-serif; /* heading font for the recipe title */
-  color: #2e6f9e; /* blue text */
-  margin-top: 0;
+* {
+  box-sizing: border-box;
 }
 
-/* ---------- Requirement 2: responsive design ----------
+body {
+  margin: 0;
+  background-color: var(--blue-light);
+  color: var(--text);
+  font-family: "Nunito", sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--blue);
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-top: 0.5rem;
+}
+
+/* Nav Bar */
+
+nav {
+  width: 100%;
+  background-color: var(--blue);
+  padding: 0.85rem 1.5rem;
+  box-shadow: 0 3px 8px rgba(32, 87, 121, 0.15);
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--yellow);
+}
+
+nav a.active {
+  color: var(--yellow);
+}
+
+/* Center Page */
+
+.main-page,
+.recipe-display {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.main-page > h1,
+.recipe-display > h1 {
+  text-align: center;
+}
+
+.main-page > p {
+  text-align: center;
+}
+
+/* Forms/dropdowns */
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: white;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select {
+  cursor: pointer;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(46, 111, 158, 0.15);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Buttons */
+
+button {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--pink);
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--pink-dark);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Acknowledgement of Recipe Creation */
+
+[role="alert"],
+[role="status"] {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+[role="alert"] {
+  background-color: #fff0f0;
+  color: #a12626;
+}
+
+[role="status"] {
+  background-color: #edf9ef;
+  color: #246b36;
+}
+
+/* Mobile layout */
+
 @media (max-width: 600px) {
-  /* Applies when the screen is 600px wide or narrower (phones/small tablets) */
+  nav {
+    padding: 0.8rem 1rem;
+  }
 
-  /* nav {
-    flex-direction: column; /* stack nav links vertically instead of side by side */
-    /* gap: 0.5rem; smaller gap since they're now stacked */
-  /* }
+  nav ul {
+    gap: 1rem;
+  }
 
-  #recipe-list {
-    grid-template-columns: 1fr; /* collapse to a single column of cards on small screens */
-  /* }
-} */
+  .main-page,
+  .recipe-display {
+    padding: 1.25rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,11 @@
+.recipe-display {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.recipe-display h1 {
+  color: #2e6f9e;
+}
