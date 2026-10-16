@@ -2,22 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
-## [0.2.0] - 2026-10-15
+## [0.2.0] - 2026-10-16
 
 ### Added
 - Rebuilt the app as a React + Vite project and moved it into a GitHub repository, with separate frontend and backend branches merged through pull requests
 - Routing between pages, with a shared header
-- Parse initialization in `index.js`, connecting the app to Back4App database backend, including a Category model and `getAllCategories` function
-- `getAllRecipes` and `getRecipesByCategory` service functions, so recipes can be loaded and filtered by category
+- Parse initialization in `index.jsx`, connecting the app to Back4App database backend
+- Category model with `getAllCategories` function
+- `getRecipesByCategory` service function, so recipes can be loaded and filtered by category
 - Stylesheets for the app, including styled recipe cards
-- Explanatory comments throughout the codebase
+- Explanatory comments throughout the codebasea
 
 ### Changed
+- connect the `getAllRecipes`, `createRecipe`, and `deleteRecipe` through backend
 - Recipes now belong to a single category instead of a list of categories
-- Create and delete recipe functions now work through the backend
 - `Main` now handles only the recipe form and creates recipes through the service
-- Fixed backend parsing so the website displays recipe data
-- Fixed the formatting of recipe cards
+
+### Fixed
+- backend parsing so the website displays recipe data
+- formatting of recipe cards
+
 
 ### Removed
 - `MainList` component, replaced by the new recipe display components
