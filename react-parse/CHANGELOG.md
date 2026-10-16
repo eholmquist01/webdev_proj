@@ -11,7 +11,7 @@ All notable changes to this project are documented in this file.
 - Category model with `getAllCategories` function
 - `getRecipesByCategory` service function, so recipes can be loaded and filtered by category
 - Stylesheets for the app, including styled recipe cards
-- Explanatory comments throughout the codebasea
+- Explanatory comments throughout the codebase
 
 ### Changed
 - connect the `getAllRecipes`, `createRecipe`, and `deleteRecipe` through backend

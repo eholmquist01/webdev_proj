@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { createRecipe } from "../../Services/Recipes.jsx";
-import { getAllCategories } from "../../Services/Categories.jsx";
+import { useEffect, useState } from "react";
+import { createRecipe } from "../../Services/Recipes.js";
+import { getAllCategories } from "../../Services/Categories.js";
 import "./Main.css";
 
 const Main = () => {

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getAllRecipes,
   getRecipesByCategory,
   deleteRecipe,
-} from "../../Services/Recipes.jsx";
-import { getAllCategories } from "../../Services/Categories.jsx";
+} from "../../Services/Recipes.js";
+import { getAllCategories } from "../../Services/Categories.js";
 import RecipeList from "./RecipeList.jsx";
 import "./RecipeDisplay.css";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import "./RecipeCard.css";
 
 // Recipe card display
