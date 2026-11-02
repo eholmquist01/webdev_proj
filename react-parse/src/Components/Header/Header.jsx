@@ -5,10 +5,13 @@ const Header = () => (
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/main">Home</Link>
                 </li>
                 <li>
                     <Link to="/RecipeDisplay">Recipes</Link>
+                </li>
+                <li>
+                    <Link to="/auth">Log out</Link>
                 </li>
             </ul>
         </nav>
