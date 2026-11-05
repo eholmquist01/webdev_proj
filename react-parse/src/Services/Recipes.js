@@ -37,6 +37,8 @@ export const createRecipe = (
   recipe.set("category", categoryPointer(categoryId)) // points to category
   recipe.set("ingredients", ingredients);
   recipe.set("instructions", instructions);
+  recipe.set("owner", Parse.User.current());
+  recipe.setACL(new Parse.ACL(Parse.User.current()));
   return recipe.save()
     .then((saved) => saved.fetch({ include: "category" }))
     .then((r) => ({
@@ -55,6 +57,7 @@ export const getAllRecipes = () => {
   const query = new Parse.Query(Recipe);
   // include category columns in query
   query.include("category");
+  query.equalTo("owner", Parse.User.current());
 
   return query
     .find()
@@ -82,6 +85,7 @@ export const getRecipesByCategory = (categoryId) => {
   // include category columns in query
   query.equalTo("category", categoryPointer(categoryId));
   query.include("category");
+  query.equalTo("owner", Parse.User.current());
 
   return query
     .find()
