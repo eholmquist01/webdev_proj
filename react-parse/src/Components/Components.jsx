@@ -31,14 +31,14 @@ const Components = () => {
         <Route path="/register" element={<AuthRegister />} />
 
         {/* pages with the header */}
-        <Route element={<HeaderLayout />}>
+        <Route element={<ProtectedRoute element={<HeaderLayout />} />}>
           <Route
             path="/main"
-            element={<ProtectedRoute element={<Main />} />}
+            element={<Main />}
           />
           <Route
             path="/RecipeDisplay"
-            element={<ProtectedRoute element={<RecipeDisplay />} />}
+            element={<RecipeDisplay />}
           />
         </Route>
 

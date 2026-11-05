@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser, verifyUser } from "../../Services/Users";
 import AuthForm from "./AuthForm";
@@ -20,7 +20,6 @@ const AuthRegister = () => {
   // redirect already authenticated users to the main page
   useEffect(() => {
     if (verifyUser()) {
-      alert("You are already logged in");
       navigate("/main");
     }
   }, [navigate]);
@@ -33,7 +32,7 @@ const AuthRegister = () => {
           alert(
             `${userCreated.get("firstName")}, you successfully registered!`
           );
-          navigate("/");
+          navigate("/main", {replace: true});
         }
         setAdd(false);
       });

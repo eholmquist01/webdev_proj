@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser, verifyUser } from "../../Services/Users";
 import AuthForm from "./AuthForm";
@@ -12,7 +12,6 @@ const AuthLogin = () => {
   // redirect already authenticated users to the main page
   useEffect(() => {
     if (verifyUser()) {
-      alert("You are already logged in");
       navigate("/main");
     }
   }, [navigate]);
@@ -27,7 +26,7 @@ const AuthLogin = () => {
     loginUser(user.username, user.password).then((loggedInUser) => {
       if (loggedInUser) {
         // alert(`${loggedInUser.get("firstName")}, you successfully logged in!`);
-        navigate("/");
+        navigate("/main", {replace: true});
       }
     });
   };

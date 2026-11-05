@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyUser } from "../../Services/Users";
 import "./Auth.css";
@@ -24,7 +24,6 @@ const Auth = () => {
   // redirect already authenticated users to the main page
   useEffect(() => {
     if (verifyUser()) {
-      alert("You are already logged in");
       navigate("/main");
     }
   }, [navigate]);
