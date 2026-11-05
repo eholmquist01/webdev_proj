@@ -2,10 +2,10 @@ import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import RecipeDisplay from "./RecipeDisplay/RecipeDisplay.jsx";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Auth from "./Auth/Auth.js";
-import AuthRegister from "./Auth/AuthRegister.js";
-import AuthLogin from "./Auth/AuthLogin.js";
-import ProtectedRoute from "../Components/ProtectedRoute/ProtectedRoutes.js";
+import Auth from "./Auth/Auth";
+import AuthLogin from "./Auth/AuthLogin";
+import AuthRegister from "./Auth/AuthRegister";
+import ProtectedRoute from "../Components/ProtectedRoute/ProtectedRoutes";
 
 const Components = () => {
   return (
