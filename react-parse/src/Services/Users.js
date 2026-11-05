@@ -1,4 +1,4 @@
-import Parse from "parse";
+import 'parse'
 
 // used in AuthRegister
 export const createUser = (newUser) => {
@@ -29,6 +29,11 @@ export const loginUser = (usernameOrEmail, password) => {
     .catch((error) => {
       alert(`Error ${error.code}: ${error.message}`);
     });
+};
+
+// used in AuthLogout
+export const logoutUser = () => {
+  return Parse.User.logOut();
 };
 
 // true if someone is currently logged in, false otherwise

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { verifyUser } from "./AuthService";
+  import { verifyUser } from "../../Services/Users";
 
 const Auth = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUser, verifyUser } from "./AuthService";
+import { createUser, verifyUser } from "../../Services/Users";
 import AuthForm from "./AuthForm";
 
 const AuthRegister = () => {

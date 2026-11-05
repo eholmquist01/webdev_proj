@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, verifyUser } from "./AuthService";
+import { loginUser, verifyUser } from "../../Services/Users";
 import AuthForm from "./AuthForm";
 
 const AuthLogin = () => {
