@@ -1,84 +1,106 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "./AuthForm.css";
 
 const AuthForm = ({ user, onChange, onSubmit, isLogin }) => {
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        {!isLogin && (
-          <>
-            <div>
-              <label>First Name</label>
-              <br />
-              <input
-                type="text"
-                value={user.firstName}
-                onChange={onChange}
-                name="firstName"
-                placeholder="first name"
-                required
-              />
-            </div>
-            <div>
-              <label>Last Name</label>
-              <br />
-              <input
-                type="text"
-                value={user.lastName}
-                onChange={onChange}
-                name="lastName"
-                placeholder="last name"
-                required
-              />
-            </div>
-          </>
-        )}
+    <main className="auth-form-page">
+      <div className="auth-card">
+        <h1 className="auth-card-title">
+          {isLogin ? "Welcome back" : "Create your account"}
+        </h1>
+        <p className="auth-card-subtitle">
+          {isLogin
+            ? "Log in to see your recipes."
+            : "Sign up to start collecting recipes."}
+        </p>
 
-        <div>
-          <label>{isLogin ? "Username or Email" : "Username"}</label>
-          <br />
-          <input
-            type="text"
-            value={user.username}
-            onChange={onChange}
-            name="username"
-            placeholder={isLogin ? "username or email" : "username"}
-            required
-          />
-        </div>
+        <form onSubmit={onSubmit}>
+          {!isLogin && (
+            <>
+              <div className="auth-field">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  id="firstName"
+                  type="text"
+                  value={user.firstName}
+                  onChange={onChange}
+                  name="firstName"
+                  placeholder="first name"
+                  required
+                />
+              </div>
+              <div className="auth-field">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  id="lastName"
+                  type="text"
+                  value={user.lastName}
+                  onChange={onChange}
+                  name="lastName"
+                  placeholder="last name"
+                  required
+                />
+              </div>
+            </>
+          )}
 
-        {!isLogin && (
-          <div>
-            <label>Email</label>
-            <br />
+          <div className="auth-field">
+            <label htmlFor="username">
+              {isLogin ? "Username or Email" : "Username"}
+            </label>
             <input
-              type="email"
-              value={user.email}
+              id="username"
+              type="text"
+              value={user.username}
               onChange={onChange}
-              name="email"
-              placeholder="email"
+              name="username"
+              placeholder={isLogin ? "username or email" : "username"}
               required
             />
           </div>
-        )}
 
-        <div>
-          <label>Password</label>
-          <br />
-          <input
-            type="password"
-            value={user.password}
-            onChange={onChange}
-            name="password"
-            placeholder="password"
-            required
-          />
-        </div>
+          {!isLogin && (
+            <div className="auth-field">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={user.email}
+                onChange={onChange}
+                name="email"
+                placeholder="email"
+                required
+              />
+            </div>
+          )}
 
-        <div>
-          <button type="submit">{isLogin ? "Login" : "Submit"}</button>
+          <div className="auth-field">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={user.password}
+              onChange={onChange}
+              name="password"
+              placeholder="password"
+              required
+            />
+          </div>
+
+          <button type="submit" className="auth-submit">
+            {isLogin ? "Login" : "Submit"}
+          </button>
+        </form>
+
+        <div className="auth-links">
+          <Link to={isLogin ? "/register" : "/login"}>
+            {isLogin ? "Need an account? Register" : "Have an account? Login"}
+          </Link>
+          <Link to="/auth">&larr; Back to welcome page</Link>
         </div>
-      </form>
-    </div>
+      </div>
+    </main>
   );
 };
 
