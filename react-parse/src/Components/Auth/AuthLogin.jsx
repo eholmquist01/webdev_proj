@@ -26,7 +26,7 @@ const AuthLogin = () => {
     e.preventDefault();
     loginUser(user.username, user.password).then((loggedInUser) => {
       if (loggedInUser) {
-        alert(`${loggedInUser.get("firstName")}, you successfully logged in!`);
+        // alert(`${loggedInUser.get("firstName")}, you successfully logged in!`);
         navigate("/");
       }
     });
