@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Nunito:wght@400;600&display=swap');
+
+.auth-page {
+  --blue: #2e6f9e;
+  --pink: #d6336c;
+  --yellow: #ffd93d;
+  --light: #eaf4fb;
+  --ink: #2d2d2d;
+
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+  background-color: var(--light);
+  color: var(--ink);
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ---------- Hero ---------- */
+.auth-hero {
+  max-width: 640px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.auth-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  color: var(--blue);
+  margin: 0 0 0.5rem;
+}
+
+.auth-tagline {
+  font-size: 1.2rem;
+  margin: 0 0 2rem;
+}
+
+.auth-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.auth-button {
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.auth-button:hover {
+  transform: translateY(-2px);
+}
+
+.auth-button-primary {
+  background-color: var(--pink);
+  color: #fff;
+}
+
+.auth-button-secondary {
+  background-color: #fff;
+  color: var(--blue);
+  border: 2px solid var(--blue);
+}
+
+/* ---------- Feature cards ---------- */
+.auth-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.auth-feature {
+  background-color: #fff;
+  border-top: 4px solid var(--yellow);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(46, 111, 158, 0.12);
+}
+
+.auth-feature h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: var(--blue);
+  margin: 0 0 0.4rem;
+}
+
+.auth-feature p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .auth-title {
+    font-size: 2.25rem;
+  }
+}

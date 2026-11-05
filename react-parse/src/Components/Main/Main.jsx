@@ -33,6 +33,16 @@ const Main = () => {
     loadCategories();
   }, []);
 
+    // Hide the success message after 3 seconds
+  useEffect(() => {
+    if (!success) return;
+
+    const timer = setTimeout(() => setSuccess(""), 3000);
+
+    // Cancel the timer if the message changes or the component unmounts
+    return () => clearTimeout(timer);
+  }, [success]);
+
   // Create a recipe and clear the form after success
   const enterSubmit = async (event) => {
     event.preventDefault();
@@ -92,21 +102,6 @@ const Main = () => {
     <div className="main-page">
       <h1>RecipeMe - a resource for collecting and organizing recipes!</h1>
       <p>Add your recipe below:</p>
-
-      {success && (
-      <div className="success-popup" role="status">
-        <span className="success-icon">✓</span>
-        {success}
-        <button
-          type="button"
-          className="success-close"
-          onClick={() => setSuccess("")}
-          aria-label="Dismiss notification"
-        >
-          ×
-        </button>
-      </div>
-    )}
 
       <form onSubmit={enterSubmit}>
         <div className="form-row">

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Nunito:wght@400;600&display=swap');
+
+.auth-form-page {
+  --blue: #2e6f9e;
+  --pink: #d6336c;
+  --yellow: #ffd93d;
+  --light: #eaf4fb;
+  --border: #bcd7ea;
+  --ink: #2d2d2d;
+
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: var(--light);
+  color: var(--ink);
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ---------- Card ---------- */
+.auth-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 420px;
+  background-color: #fff;
+  border-top: 4px solid var(--yellow);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(46, 111, 158, 0.15);
+}
+
+.auth-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.75rem;
+  color: var(--blue);
+  margin: 0 0 0.25rem;
+  text-align: center;
+}
+
+.auth-card-subtitle {
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+
+/* ---------- Fields ---------- */
+.auth-field {
+  margin-bottom: 1rem;
+}
+
+.auth-field label {
+  display: block;
+  font-weight: 600;
+  color: var(--blue);
+  margin-bottom: 0.3rem;
+}
+
+.auth-field input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.auth-field input:focus {
+  outline: 2px solid var(--yellow);
+  border-color: var(--blue);
+}
+
+/* ---------- Button ---------- */
+.auth-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--pink);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.auth-submit:hover {
+  background-color: var(--blue);
+}
+
+/* ---------- Links under the form ---------- */
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.auth-links a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
