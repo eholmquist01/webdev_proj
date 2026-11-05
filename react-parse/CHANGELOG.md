@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.0] - 2026-11-05
+
+### Added
+- User authentication through Back4App, with `createUser`, `loginUser`, `verifyUser`, and `logoutUser` service functions
+- `Auth` landing page with links to log in or create an account
+- `AuthLogin` and `AuthRegister` pages sharing a reusable `AuthForm` component
+- `ProtectedRoute` component that only lets logged-in users reach protected pages and sends logged-out users to `/auth`
+- Catch-all route that redirects unknown URLs to `/auth`
+- Logged-in users who open the login, register, or landing page are sent back to the main page no matter what page they are on
+
+### Changed
+- The header layout is now protected, so the header and all pages inside it only render for logged-in users
+- After logging in or registering, users go straight to `/main` instead of `/`
+- Only displays recipes that were created by user, altered functions in `Recipes.js`
+- Registration now redirects with `replace`, so the back button doesn't return to the form
+- service name from `AuthService.js` to `Users.js`
+
+### Fixed
+- Alerts showing twice in development because of React StrictMode now shows once
+- Card layout in CSS file
+
 ## [0.2.0] - 2026-10-16
 
 ### Added
