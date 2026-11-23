@@ -1,0 +1,155 @@
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.main-page .photo-upload-label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.photo-upload-error {
+  color: #d6336c;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Preview card styled like the feature cards on the home page */
+.photo-upload-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #fff;
+  border-top: 4px solid #ffd93d;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(46, 111, 158, 0.12);
+}
+
+/* One thumbnail per page, in reading order */
+.photo-upload-pages {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photo-upload-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+/* The page Claude couldn't read */
+.photo-upload-page--failed {
+  border-color: #d6336c;
+  background-color: #fff1f5;
+}
+
+.photo-upload-page img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  background-color: #f8fafc;
+  border-radius: 4px;
+}
+
+.photo-upload-page-label {
+  font-weight: 600;
+  color: #2e6f9e;
+}
+
+.photo-upload-page-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.main-page .photo-upload-page-controls button {
+  min-width: 36px;
+  padding: 4px 8px;
+  background-color: #fff;
+  color: #2e6f9e;
+  border: 1px solid #2e6f9e;
+  font-size: 0.9rem;
+}
+
+.main-page .photo-upload-page-controls button:hover:not(:disabled) {
+  background-color: #eaf4fb;
+}
+
+.photo-upload-preview p {
+  margin: 0;
+  color: #2e6f9e;
+}
+
+.photo-upload-status {
+  margin: 0;
+  color: #2e6f9e;
+}
+
+.photo-upload-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Secondary actions: "Remove photo", "Choose a different photo" */
+.main-page .photo-upload-secondary {
+  background-color: #fff;
+  color: #2e6f9e;
+  border: 2px solid #2e6f9e;
+}
+
+.main-page .photo-upload-secondary:hover {
+  background-color: #eaf4fb;
+}
+
+/* Why the photo couldn't be read, and what to do about it */
+.photo-upload-failure {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  background-color: #fff1f5;
+  border-left: 4px solid #d6336c;
+  border-radius: 8px;
+}
+
+.main-page .photo-upload-failure p {
+  color: #334155;
+}
+
+.main-page .photo-upload-failure .photo-upload-failure-title {
+  color: #d6336c;
+  font-weight: 700;
+}
+
+/* Compact status shown while the photo sits beside the form */
+.photo-upload-done {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  background-color: #eaf4fb;
+  border-radius: 8px;
+}
+
+.main-page .photo-upload-done p {
+  margin: 0;
+  color: #2e6f9e;
+  font-weight: 600;
+}
