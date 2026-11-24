@@ -1,0 +1,56 @@
+.shopping-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.shopping-list-item-text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.75rem;
+  row-gap: 0.2rem;
+}
+
+.shopping-list-item-name {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.shopping-list-item-amount {
+  color: #2e6f9e;
+  font-weight: 600;
+}
+
+/* Which recipes need it, on its own line */
+.shopping-list-item-recipes {
+  flex-basis: 100%;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.shopping-list-item button {
+  flex: none;
+  background-color: #ff6f9c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
+.shopping-list-item button:hover:not(:disabled) {
+  background-color: #e95382;
+}
+
+.shopping-list-item button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

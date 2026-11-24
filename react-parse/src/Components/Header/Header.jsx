@@ -12,6 +12,9 @@ const Header = () => (
           <Link to="/RecipeDisplay">Recipes</Link>
         </li>
         <li>
+          <Link to="/ShoppingList">Shopping List</Link>
+        </li>
+        <li>
           <AuthLogout />
         </li>
       </ul>
