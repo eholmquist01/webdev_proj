@@ -75,3 +75,35 @@
 .recipe-card-photo a {
   color: #2e6f9e;
 }
+
+/* Shopping list + Delete buttons side by side */
+.recipe-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Blue so it doesn't look like Delete */
+.recipe-card .recipe-card-shopping {
+  background-color: #2e6f9e;
+}
+
+.recipe-card .recipe-card-shopping:hover:not(:disabled) {
+  background-color: #245a82;
+}
+
+/* Already on the list: outlined instead of filled */
+.recipe-card .recipe-card-shopping[aria-pressed="true"] {
+  background-color: white;
+  color: #2e6f9e;
+  border: 2px solid #2e6f9e;
+}
+
+.recipe-card .recipe-card-shopping[aria-pressed="true"]:hover:not(:disabled) {
+  background-color: #eaf4fb;
+}
+
+.recipe-card .recipe-card-shopping:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

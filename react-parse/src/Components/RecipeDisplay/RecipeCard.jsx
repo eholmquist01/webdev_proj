@@ -3,7 +3,14 @@ import "./RecipeCard.css";
 
 // Recipe card display
 // Recipes saved with photos can be switched between the text and the original photos
-const RecipeCard = ({ recipe, onDelete }) => {
+// The shopping list button only reports clicks up; RecipeDisplay owns the list state
+const RecipeCard = ({
+  recipe,
+  onDelete,
+  inShoppingList,
+  isShoppingPending,
+  onToggleShoppingList,
+}) => {
   const [showPhoto, setShowPhoto] = useState(false);
   const photoUrls = recipe.photoUrls ?? [];
   const hasPhotos = photoUrls.length > 0;
@@ -64,9 +71,28 @@ const RecipeCard = ({ recipe, onDelete }) => {
         </>
       )}
 
-      <button type="button" onClick={() => onDelete(recipe.id)}>
-        Delete
-      </button>
+      {/* Outside the photo/text switch so both buttons show in either view */}
+      <div className="recipe-card-actions">
+        <button
+          type="button"
+          className="recipe-card-shopping"
+          aria-pressed={inShoppingList}
+          disabled={isShoppingPending}
+          onClick={() => onToggleShoppingList(recipe)}
+        >
+          {isShoppingPending
+            ? inShoppingList
+              ? "Removing..."
+              : "Adding..."
+            : inShoppingList
+              ? "Remove from shopping list"
+              : "Add to shopping list"}
+        </button>
+
+        <button type="button" onClick={() => onDelete(recipe.id)}>
+          Delete
+        </button>
+      </div>
     </article>
   );
 };

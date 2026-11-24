@@ -187,3 +187,6 @@ Parse.Cloud.define("extractRecipe", async (request) => {
     },
   };
 });
+
+// Shopping list functions (parseIngredients) live in their own file
+require("./shoppingList");

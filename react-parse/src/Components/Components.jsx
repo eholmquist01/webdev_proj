@@ -1,6 +1,7 @@
 import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import RecipeDisplay from "./RecipeDisplay/RecipeDisplay.jsx";
+import ShoppingList from "./ShoppingList/ShoppingList.jsx";
 import {
   BrowserRouter as Router,
   Routes,
@@ -39,6 +40,10 @@ const Components = () => {
           <Route
             path="/RecipeDisplay"
             element={<RecipeDisplay />}
+          />
+          <Route
+            path="/ShoppingList"
+            element={<ShoppingList />}
           />
         </Route>
 
