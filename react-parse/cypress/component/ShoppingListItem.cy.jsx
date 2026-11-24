@@ -48,6 +48,12 @@ describe("<ShoppingListItem />", () => {
     cy.contains(".shopping-list-item-recipes", "For: Deleted recipe");
   });
 
+  it("labels typed-in items as added by you", () => {
+    mountRow({ group: { ...group, recipes: [{ id: "r1", name: "Bread" }], addedByUser: true } });
+
+    cy.contains(".shopping-list-item-recipes", "For: Bread, added by you");
+  });
+
   it("calls onRemove with the group when Remove is clicked", () => {
     mountRow();
 

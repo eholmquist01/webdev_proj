@@ -3,11 +3,15 @@ import "./ShoppingListItem.css";
 
 // One row of the shopping list (child): shows a combined ingredient and
 // reports "remove" clicks to the ShoppingList parent, which does the delete.
-//   group      { name, amounts: [{ quantity, unit }], recipes: [{ id, name }], itemIds }
+//   group      { name, amounts: [{ quantity, unit }], recipes: [{ id, name }], addedByUser, itemIds }
 //   isPending  true while this row is being removed
 //   onRemove   called with the group
 const ShoppingListItem = ({ group, isPending, onRemove }) => {
   const recipeNames = group.recipes.map((recipe) => recipe.name || "Deleted recipe");
+  // Typed-in items have no recipe, so they're listed as "added by you"
+  if (group.addedByUser) {
+    recipeNames.push("added by you");
+  }
 
   return (
     <li className="shopping-list-item">

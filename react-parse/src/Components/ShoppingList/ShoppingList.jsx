@@ -4,18 +4,24 @@ import {
   getShoppingListItems,
   removeShoppingListItem,
   removeRecipeFromShoppingList,
+  addTypedItemsToShoppingList,
   aggregateItems,
 } from "../../Services/ShoppingList.js";
 import ShoppingListItem from "./ShoppingListItem.jsx";
+import AddItemForm from "./AddItemForm.jsx";
 import { downloadShoppingListPdf } from "./shoppingListPdf.js";
 import "./ShoppingList.css";
 
-// Master shopping list page (parent): owns the items and the remove handlers.
-// Each ShoppingListItem row only displays one combined ingredient and reports
-// "remove" clicks back up here.
+// Master shopping list page (parent): owns the items, the add/remove handlers,
+// and the typed-in text. Each ShoppingListItem row only displays one combined
+// ingredient and reports "remove" clicks back up here; AddItemForm reports
+// typing and submits back up here.
 const ShoppingList = () => {
-  // Raw items from Back4App, one per ingredient per recipe
+  // Raw items from Back4App, one per ingredient per recipe (or per typed-in item)
   const [items, setItems] = useState([]);
+  // Text in the "Add your own items" box, and whether it's being saved
+  const [newItemText, setNewItemText] = useState("");
+  const [isAdding, setIsAdding] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState("");
   // Errors from removing, shown without hiding the list
@@ -122,6 +128,36 @@ const ShoppingList = () => {
     );
   };
 
+  // Add the typed-in items (called by AddItemForm). The text goes through the
+  // same AI parsing as recipes, so "2 cups milk" combines with milk from a recipe.
+  const handleAddTyped = async () => {
+    const text = newItemText.trim();
+    if (!text) return;
+
+    setIsAdding(true);
+    setActionError("");
+    try {
+      const added = await addTypedItemsToShoppingList(text);
+      if (!isMountedRef.current) return;
+
+      if (added.length === 0) {
+        setActionError(`Couldn't find any items in "${text}".`);
+      } else {
+        setItems((current) => [...current, ...added]);
+        setNewItemText(""); // clear the box only when it worked
+      }
+    } catch (error) {
+      console.error("Error adding items:", error);
+      if (isMountedRef.current) {
+        setActionError(`Couldn't add those items. ${error.message || "Please try again."}`);
+      }
+    } finally {
+      if (isMountedRef.current) {
+        setIsAdding(false);
+      }
+    }
+  };
+
   // Download the combined list (what's on screen) as a PDF
   const handleDownloadPdf = async () => {
     setIsMakingPdf(true);
@@ -160,17 +196,28 @@ const ShoppingList = () => {
 
       {isLoaded && error && <p role="alert">{error}</p>}
 
+      {isLoaded && !error && (
+        <AddItemForm
+          value={newItemText}
+          isAdding={isAdding}
+          onChange={setNewItemText}
+          onSubmit={handleAddTyped}
+        />
+      )}
+
       {actionError && <p role="alert">{actionError}</p>}
 
       {isLoaded && !error && groups.length === 0 && (
         <p>
-          Your shopping list is empty. Add recipes from the{" "}
-          <Link to="/RecipeDisplay">Recipes</Link> page.
+          Your shopping list is empty. Type items in above, or add recipes from
+          the <Link to="/RecipeDisplay">Recipes</Link> page.
         </p>
       )}
 
       {isLoaded && !error && groups.length > 0 && (
         <>
+          {/* Only when there are recipe items (a list can be all typed-in items) */}
+          {recipesOnList.length > 0 && (
           <section className="shopping-list-recipes" aria-label="Recipes on your list">
             <h2>Recipes on your list</h2>
             <ul>
@@ -189,6 +236,7 @@ const ShoppingList = () => {
               ))}
             </ul>
           </section>
+          )}
 
           <h2>Items ({groups.length})</h2>
           <ul className="shopping-list-items">

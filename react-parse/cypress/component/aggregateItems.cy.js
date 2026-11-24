@@ -98,6 +98,23 @@ describe("aggregateItems", () => {
     expect(result[0].itemIds).to.deep.equal(["a", "b", "c"]);
   });
 
+  it("combines typed-in items (no recipe) with recipe items and flags them", () => {
+    const result = aggregateItems([
+      item("a", "milk", 1, "cup", "r1", "Cake"),
+      item("b", "milk", 2, "cup", null, ""),
+      item("c", "paper towels", null, null, null, ""),
+    ]);
+
+    const milk = result.find((group) => group.name === "milk");
+    expect(milk.amounts).to.deep.equal([{ quantity: 3, unit: "cup" }]);
+    expect(milk.recipes).to.deep.equal([{ id: "r1", name: "Cake" }]);
+    expect(milk.addedByUser).to.equal(true);
+
+    const towels = result.find((group) => group.name === "paper towels");
+    expect(towels.recipes).to.deep.equal([]);
+    expect(towels.addedByUser).to.equal(true);
+  });
+
   it("sorts groups by name and skips items with no name", () => {
     const result = aggregateItems([
       item("a", "sugar", 1, "cup"),

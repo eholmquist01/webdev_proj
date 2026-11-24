@@ -77,6 +77,20 @@ export const addRecipeToShoppingList = async (recipe) => {
   // clear any items already saved for this recipe, so adding twice doesn't duplicate them
   await removeRecipeFromShoppingList(recipe.id)
 
+  const saved = await saveItems(parsed, recipe.id)
+  // the saved pointers don't carry the name, so fill it in from the recipe we were given
+  return saved.map((item) => ({ ...item, recipeName: recipe.name }))
+}
+
+// add items the user typed in (e.g. "2 cups milk, paper towels"), not from a recipe
+// Resolves to the new items, in the same shape as getShoppingListItems (recipeId is null)
+export const addTypedItemsToShoppingList = async (text) => {
+  const parsed = await parseIngredients(text)
+  return saveItems(parsed, null)
+}
+
+// save parsed items for the current user; recipeId is null for typed-in items
+const saveItems = async (parsed, recipeId) => {
   const user = Parse.User.current()
   const items = parsed.map((p) => {
     const item = new ShoppingListItem()
@@ -84,7 +98,9 @@ export const addRecipeToShoppingList = async (recipe) => {
     item.set("quantity", p.quantity)
     item.set("unit", p.unit)
     item.set("originalText", p.originalText)
-    item.set("recipe", recipePointer(recipe.id))
+    if (recipeId) {
+      item.set("recipe", recipePointer(recipeId))
+    }
     item.set("owner", user)
     item.setACL(new Parse.ACL(user))
     return item
@@ -92,8 +108,7 @@ export const addRecipeToShoppingList = async (recipe) => {
 
   try {
     const saved = await Parse.Object.saveAll(items)
-    // the saved pointers don't carry the name, so fill it in from the recipe we were given
-    return saved.map((r) => ({ ...toItem(r), recipeName: recipe.name }))
+    return saved.map(toItem)
   } catch (err) {
     console.error("POST Error with ShoppingListItem: ", err)
     throw err
@@ -121,7 +136,8 @@ const round = (n) => Math.round(n * 100) / 100
 // so it can be tested on its own.
 //   items: [{ id, name, quantity, unit, originalText, recipeId, recipeName }]
 // Returns, sorted by name:
-//   [{ name, amounts: [{ quantity, unit }], recipes: [{ id, name }], itemIds: [] }]
+//   [{ name, amounts: [{ quantity, unit }], recipes: [{ id, name }], addedByUser, itemIds: [] }]
+// - addedByUser is true if any of the items was typed in (has no recipe)
 // - items with the same name are one group
 // - quantities with the same unit are added together
 // - different units ("1 cup" and "2 tbsp") stay as separate amounts,
@@ -135,12 +151,14 @@ export const aggregateItems = (items) => {
     if (!name) continue
 
     if (!groups.has(name)) {
-      groups.set(name, { name, amounts: new Map(), recipes: new Map(), itemIds: [] })
+      groups.set(name, { name, amounts: new Map(), recipes: new Map(), addedByUser: false, itemIds: [] })
     }
     const group = groups.get(name)
     group.itemIds.push(item.id)
     if (item.recipeId) {
       group.recipes.set(item.recipeId, { id: item.recipeId, name: item.recipeName })
+    } else {
+      group.addedByUser = true
     }
 
     const hasQuantity = typeof item.quantity === "number" && !Number.isNaN(item.quantity)
@@ -161,6 +179,7 @@ export const aggregateItems = (items) => {
       name: g.name,
       amounts: [...g.amounts.values()],
       recipes: [...g.recipes.values()],
+      addedByUser: g.addedByUser,
       itemIds: g.itemIds,
     }))
     .sort((a, b) => a.name.localeCompare(b.name))
