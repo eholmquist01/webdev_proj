@@ -2,6 +2,34 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.0] - 2026-11-24
+
+### Added
+- Recipe photo upload: add up to 5 photos (one per page) of a recipe, and Claude reads them through the new `extractRecipe` Cloud Code function to fill in the recipe form
+- Fields filled in from a photo are highlighted until edited, with the photos shown beside the form for checking
+- Tips for photos that can't be read (blurry, cut off, too dark, glare, and more), with options to try again or replace a page
+- Recipes are saved with their photos, and recipe cards can switch between the recipe text and the original photos
+- Shopping list: "Add to shopping list" / "Remove from shopping list" button on each recipe card
+- `parseIngredients` Cloud Code function that uses Claude to split a recipe's ingredient text into items with a name, quantity, and unit
+- `ShoppingList.js` service with `getShoppingListItems`, `addRecipeToShoppingList`, `addTypedItemsToShoppingList`, `removeRecipeFromShoppingList`, `removeShoppingListItem`, and `aggregateItems`
+- New `ShoppingListItem` class in Back4App, with each item owned by its user and linked to its recipe
+- Shopping List page that combines ingredients across recipes, adds up amounts with the same unit, and shows which recipes each item is for
+- Typing in your own shopping list items, like "2 cups milk, paper towels"
+- Download the shopping list as a PDF
+- `/ShoppingList` route and a "Shopping List" link in the header
+- Cypress component tests for `aggregateItems` and `ShoppingListItem`, run with `npm test` (or `npm run cy:open` to watch them)
+- Cloud Code now lives in the repo under `back4app-cloud/cloud/`
+
+### Changed
+- `createRecipe` accepts optional photos, and recipes returned by `Recipes.js` include `photoUrls`
+- Recipe cards keep the line breaks in ingredients and instructions
+- Deleting a recipe also removes its items from the shopping list
+- `package.json` version now matches the changelog
+
+### Fixed
+- Changing the category filter quickly could show recipes from an earlier category when an older request finished last
+- Recipes and categories no longer update state after leaving the Recipes page
+
 ## [0.3.0] - 2026-11-05
 
 ### Added
