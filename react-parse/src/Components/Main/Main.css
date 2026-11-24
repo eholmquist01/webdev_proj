@@ -59,3 +59,106 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+/* Wider page while the photo is shown beside the form */
+.main-page.main-page--wide {
+  max-width: 1100px;
+}
+
+/* Review layout: photo on the left, form on the right */
+.main-review {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.main-review-photo {
+  position: sticky;
+  top: 16px;
+}
+
+.main-review-photo > img {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 140px); /* leaves room for the page switcher */
+  object-fit: contain;
+  background-color: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+}
+
+@media (max-width: 700px) {
+  .main-review {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .main-review-photo {
+    position: static;
+  }
+
+  .main-review-photo > img {
+    max-height: 60vh;
+  }
+}
+
+/* Fields filled in from the photo, until the user edits them */
+.main-page .ai-filled {
+  background-color: #fff8d6;
+  border-color: #ffd93d;
+  box-shadow: 0 0 0 1px #ffd93d;
+}
+
+.main-page .ai-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #475569;
+}
+
+.ai-legend-swatch {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background-color: #fff8d6;
+  border: 2px solid #ffd93d;
+  border-radius: 4px;
+}
+
+/* Page switcher under the large review photo */
+.main-review-pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.main-page .main-review-pages button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 76px;
+  padding: 4px;
+  background-color: #fff;
+  color: #2e6f9e;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.main-page .main-review-pages button:hover {
+  background-color: #eaf4fb;
+}
+
+.main-page .main-review-pages button.is-current {
+  border-color: #2e6f9e;
+  background-color: #eaf4fb;
+}
+
+.main-review-pages img {
+  width: 100%;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 4px;
+}
